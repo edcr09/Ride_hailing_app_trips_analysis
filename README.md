@@ -39,7 +39,7 @@ Una base de datos con información sobre viajes en taxi en Chicago:
 - description: breve descripción de las condiciones meteorológicas, por ejemplo, "lluvia ligera" o "nubes dispersas"
 
 ## Esquema de la tabla
-![ver imagen](Ride_hailing_app_trips_analysis/table_diagram.png)
+![ver imagen](table_diagram.png)
 
 Nota: no existe una conexión directa entre las tablas trips y weather_records en la base de datos. Pero se puede usar JOIN y vincularlas usando la hora en la que comenzó el viaje (trips.start_ts) y la hora en la que se tomó el registro meteorológico (weather_records.ts).
 
@@ -61,9 +61,9 @@ Además de los datos recuperados en las tareas anteriores, se tiene un segundo a
 - weather_conditions: condiciones climáticas en el momento en el que comenzó el viaje
 - duration_seconds: duración del viaje en segundos
 
-![Ver queries](Ride_hailing_app_trips_analysis/SQL_queries_DA-7.txt)
+![Ver queries](SQL%20queries%20DA-7.txt)
 
-![Ver recopilación de datos de clima NOV 2017](Ride_hailing_app_trips_analysis/Website_data_collection.txt)
+![Ver recopilación de datos de clima NOV 2017](Website%20data%20collection.txt)
 
 
 
