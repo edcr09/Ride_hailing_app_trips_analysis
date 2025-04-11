@@ -1,0 +1,103 @@
+SQL queries
+
+Cantidad de viajes en taxi para cada compañía de taxis para el 15 y 16 de noviembre de 2017, 
+Campo resultante: trips_amount
+Resultados ordenados por el campo trips_amount en orden descendente
+Resultado: project_sql_result_01.csv
+
+SELECT 
+    cabs.company_name AS company_name,
+    COUNT( trips.trip_id ) AS trips_amount 
+FROM
+    trips 
+    LEFT JOIN cabs ON trips.cab_id = cabs.cab_id
+WHERE
+    CAST (trips.start_ts AS date) BETWEEN '2017-11-15' AND '2017-11-16' 
+GROUP BY 
+    cabs.company_name
+ORDER BY 
+    trips_amount DESC ;
+
+
+
+
+
+
+Promedio de viajes por ubicación de llegada durante noviembre:
+Resultado: moved_project_sql_result_04.csv
+
+WITH unique_days AS (
+    SELECT DISTINCT DATE(end_ts) AS trip_date
+    FROM trips
+    WHERE DATE(end_ts) BETWEEN '2017-11-01' AND '2017-11-30'
+),
+total_days AS (
+    SELECT COUNT(*) AS num_days
+    FROM unique_days
+)
+SELECT 
+    n.name AS dropoff_location_name,
+    COUNT(t.trip_id) * 1.0 / (SELECT num_days FROM total_days) AS average_trips -- Promedio
+FROM 
+    trips t
+JOIN 
+    neighborhoods n
+ON 
+    t.dropoff_location_id = n.neighborhood_id
+WHERE 
+    DATE(t.end_ts) BETWEEN '2017-11-01' AND '2017-11-30'
+GROUP BY 
+    n.name
+ORDER BY 
+    average_trips DESC;
+
+
+
+
+
+
+Datos sobre viajes desde el Loop hasta el Aeropuerto Internacional O'Hare
+
+Registros de condiciones meteorológicas de la tabla weather_records, para cada hora de cada dia
+horas en dos grupos: Bad y Good
+Resultado: weather_conditions.csv
+
+SELECT 
+    DATE_TRUNC('hour', ts) AS ts,
+    CASE
+        WHEN description LIKE '%rain%' OR description LIKE'%storm%' THEN 'Bad'
+        ELSE 'Good'
+    END AS weather_conditions
+FROM
+    weather_records
+
+
+
+
+Viajes que comenzaron en el Loop (pickup_location_id: 50) el sábado y 
+terminaron en O'Hare (dropoff_location_id: 63)
+Con condiciones climáticas y, duración para cada viaje
+Ignorar los viajes para los que no hay datos disponibles sobre las condiciones climáticas.
+Resultado: project_sql_result_07.csv
+
+SELECT
+    start_ts,
+    T.weather_conditions,
+    duration_seconds
+FROM 
+    trips
+INNER JOIN (
+    SELECT
+        ts,
+        CASE
+            WHEN description LIKE '%rain%' OR description LIKE '%storm%' THEN 'Bad'
+            ELSE 'Good'
+        END AS weather_conditions
+    FROM 
+        weather_records          
+) AS T on T.ts = trips.start_ts
+WHERE 
+    pickup_location_id = 50 AND dropoff_location_id = 63 AND EXTRACT (DOW from trips.start_ts) = 6
+ORDER BY trip_id
+
+
