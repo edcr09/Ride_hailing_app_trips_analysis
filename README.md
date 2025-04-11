@@ -1,13 +1,13 @@
 # Ride_hailing_app_trips_analysis
-## Analisis de viajes realizados en una app de servicio de taxi
-DA-6
+## Analisis de viajes realizados en una app de servicio de viajes
+DA-7
 
 ## Descripción del proyecto
 Estás trabajando como analista para Zuber, una nueva empresa de viajes compartidos que se está lanzando en Chicago. 
 
 ## Objetivo
-Encontrar patrones en la información disponible. Quieres comprender las preferencias de los pasajeros y el impacto de los factores externos en los viajes.
-Al trabajar con una base de datos, analizarás los datos de los competidores y probarás una hipótesis sobre el impacto del clima en la frecuencia de los viajes.
+Encontrar patrones en la información disponible. Comprender las preferencias de los pasajeros y el impacto de los factores externos en los viajes.
+Al trabajar con una base de datos, se analizarán los datos de los competidores y se probará una hipótesis sobre el impacto del clima en la frecuencia de los viajes.
 
 ## Descripción de los datos
 Una base de datos con información sobre viajes en taxi en Chicago:
@@ -38,9 +38,12 @@ Una base de datos con información sobre viajes en taxi en Chicago:
 - temperature: temperatura cuando se tomó el registro
 - description: breve descripción de las condiciones meteorológicas, por ejemplo, "lluvia ligera" o "nubes dispersas"
 
-Nota: no existe una conexión directa entre las tablas trips y weather_records en la base de datos. Pero aún puedes usar JOIN y vincularlas usando la hora en la que comenzó el viaje (trips.start_ts) y la hora en la que se tomó el registro meteorológico (weather_records.ts).
+## Esquema de la tabla
+![ver imagen](Ride_hailing_app_trips_analysis/table_diagram.png)
 
-Además de los datos que recuperaste en las tareas anteriores te han dado un segundo archivo. Ahora tienes estos dos CSV:
+Nota: no existe una conexión directa entre las tablas trips y weather_records en la base de datos. Pero se puede usar JOIN y vincularlas usando la hora en la que comenzó el viaje (trips.start_ts) y la hora en la que se tomó el registro meteorológico (weather_records.ts).
+
+Además de los datos recuperados en las tareas anteriores, se tiene un segundo archivo. Ahora se tienen estos dos CSV:
 
 ### project_sql_result_01.csv. Contiene los siguientes datos:
 
@@ -57,6 +60,10 @@ Además de los datos que recuperaste en las tareas anteriores te han dado un seg
 - start_ts: fecha y hora de recogida
 - weather_conditions: condiciones climáticas en el momento en el que comenzó el viaje
 - duration_seconds: duración del viaje en segundos
+
+![Ver queries](Ride_hailing_app_trips_analysis/SQL_queries_DA-7.txt)
+
+![Ver recopilación de datos de clima NOV 2017](Ride_hailing_app_trips_analysis/Website_data_collection.txt)
 
 
 
